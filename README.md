@@ -4,6 +4,10 @@ Bangalore Torpedo 2021 Hackathon Code Repo
 
 ## Instructions To Run Backend and Deploy Backend
 
+### Prerequisite
+1. Node Version: v14.17.2
+2. Add .env in project root dir
+ 
 ### How to Run Backend
 
 To run backend :
