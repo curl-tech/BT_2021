@@ -26,6 +26,6 @@ From project root dir do the following things:
 
 To run backend :
 1. npm install
-2. npm start
+2. node app.js
 
 
