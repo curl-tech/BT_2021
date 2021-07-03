@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
+const PINATA_API_KEY = process.env.PINATA_API_KEY ;
+const PINATA_API_SECRET = process.env.PINATA_API_SECRET ;
 const pinataSDK = require('@pinata/sdk');
-const pinata = pinataSDK('ce337d9a240c058c587c', '9b17607f378b1316894dad757278d4481e96ebdf826b846f85f988de65e5ed98');
 const { Readable } = require('stream');
 const fs = require('fs');
 const web3 = require("./web3_init");
 const NatureNFT = require("../compiled_contracts/NatureNFT.json");
 const {spawn} = require('child_process');
-
+const pinata = pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
 router.get('/accounts', async function (req, res, next) {
   const accounts = await web3.eth.getAccounts();
   res.send(accounts);
