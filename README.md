@@ -10,7 +10,20 @@ To run backend :
 1. npm install
 2. node app.js
 
-
+### APIs
+1. Upload File:
+   POST URL: http://localhost:8080/nature/upload-file
+   <pre>
+   {
+    "artName":"New Art Name",
+    "artDescription": "Description of this art",
+    "file":"file goes here"
+   }
+   </pre>
+   Unce uploaded, this async API does following perations:
+   1. The api calls a python script, gets processed filePath (art output)
+   2. Uploads the art and its metadata to IPFS 
+   3. The returned ipfs url is used to create a new NFT in Ethereum blockchain ( Rinkeby Testnet) 
 ### How To Compile and Deploy Contract
 This is not a necessary step, unless you make modification and deploy new contract.
 From project root dir do the following things:
