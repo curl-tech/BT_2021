@@ -24,7 +24,7 @@ To run backend :
     "file":"file goes here"
    }
    </pre>
-   Unce uploaded, this async API does following perations:
+   Unce uploaded, this async API does following operations:
    1. The api calls a python script, gets processed filePath (art output)
    2. Uploads the art and its metadata to IPFS 
    3. The returned ipfs url is used to create a new NFT in Ethereum blockchain ( Rinkeby Testnet) 
