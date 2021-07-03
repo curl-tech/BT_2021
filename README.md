@@ -4,8 +4,15 @@ Bangalore Torpedo 2021 Hackathon Code Repo
 
 ## Instructions To Run Backend and Deploy Backend
 
-### How To Compile and Deploy Contract
+### How to Run Backend
 
+To run backend :
+1. npm install
+2. node app.js
+
+
+### How To Compile and Deploy Contract
+This is not a necessary step, unless you make modification and deploy new contract.
 From project root dir do the following things:
 1. Install Truffle cli: npm install -g truffle
 2. To compile: truffle compile
@@ -22,10 +29,5 @@ From project root dir do the following things:
     2. To deploy run: truffle migrate --network rinkeby_infura --reset --compile-all
 
 
-### How to Run Backend
-
-To run backend :
-1. npm install
-2. node app.js
 
 
