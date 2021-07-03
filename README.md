@@ -28,6 +28,7 @@ To run backend :
    1. The api calls a python script, gets processed filePath (art output)
    2. Uploads the art and its metadata to IPFS 
    3. The returned ipfs url is used to create a new NFT in Ethereum blockchain ( Rinkeby Testnet) 
+   4. Each new NFT created can be tracked in Opensea market here: https://testnets.opensea.io/collection/naturenft-v4
 ### How To Compile and Deploy Contract
 This is not a necessary step, unless you make modification and deploy new contract.
 From project root dir do the following things:
