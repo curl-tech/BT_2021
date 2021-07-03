@@ -1,0 +1,37 @@
+
+truffle console 
+
+compile
+
+migrate
+
+
+let accounts = await web3.eth.getAccounts()
+
+let nft = await NatureNFT.deployed()
+
+nft.createArt(accounts[0],"ipfs://QmPV4a3WEV5TBFP59Se1DXH9x94kT7AdFQbrykH6uagVQT",{from:accounts[0]})
+
+nft.ownerOf(1)
+
+nft.tokenURI(1)
+
+
+
+Deploying to rinkeby_local
+
+geth --rinkeby --syncmode "light" --cache 2048 --rpc --rpcapi db,eth,net,web3,personal --allow-insecure-unlock --unlock="0xddb44367f29ba53489d527247b991f32cda5526f"
+
+
+truffle console --network rinkeby_local
+
+nft.createArt(accounts[0],"https://ipfs.io/ipfs/QmXS9DxmcDg5dz49zxcbJH6wQjRrULdXzVdiHqFrupHrmm?filename=metadata2.json",{from:accounts[0]})
+
+
+
+Deploying to rinkeby_infura
+
+ truffle migrate --network rinkeby_infura --reset --compile-all
+
+
+
