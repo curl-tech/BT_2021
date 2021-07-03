@@ -13,8 +13,9 @@ From project root dir do the following things:
 
 * Deploying to Ganache: truffle migrate
 * Deploying to rinkeby_local:
-    1. Run a local light Geth node with following command: geth --rinkeby --syncmode "light" --cache 2048 --rpc --rpcapi db,eth,net,web3,personal --allow-insecure-unlock --unlock="0xddb44367f29ba53489d527247b991f32cda5526f"
-    2. To deploy run: truffle console --network rinkeby_local
+    1. Run a local light Geth node with following command: 
+     <pre>geth --rinkeby --syncmode "light" --cache 2048 --rpc --rpcapi db,eth,net,web3,personal --allow-insecure-unlock --unlock="0xddb44367f29ba53489d527247b991f32cda5526f"</pre>
+    3. To deploy run: truffle console --network rinkeby_local
 
 * Deploying to rinkeby_infura:
     1. To deploy to rinkeby using infura place .env in root project
