@@ -2,7 +2,7 @@
 Bangalore Torpedo 2021 Hackathon Code Repo
 
 
-## Instructions To Run Backend and Deploy Backend
+## Instructions To Run/Deploy Backend 
 
 ### Prerequisite
 1. Node Version: v14.17.2
