@@ -63,5 +63,16 @@ From project root dir do the following things:
     2. To deploy run: truffle migrate --network rinkeby_infura --reset --compile-all
 
 
+### How to Run AI-Camera
+
+* Download `yolov3.weights` file which contains the weights of pre-trained YOLOV3 model and should be placed in the `AI-Camera & TwitterFeed/weights/` directory. You can easily download the weights using the link https://pjreddie.com/darknet/yolo/
+
+* Run `python run_ai_smart_cam.py`
+
+### How to Run TwitterFeed
+
+* Setup your twitter api and get all the neccessary details like **api_key** **secret_key** etc
+* Run `python twitter_feeds.py`
+
 
 
