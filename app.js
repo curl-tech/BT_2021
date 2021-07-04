@@ -1,6 +1,7 @@
 var express = require('express');
 require('dotenv').config();
 var path = require('path');
+const cors = require('cors');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var fileUpload = require('express-fileupload');
@@ -9,6 +10,7 @@ var usersRouter = require('./routes/nature');
 var app = express();
 // TODO: this configuration should be changed 
 app.use(fileUpload({useTempFiles:true,tempFileDir:"uploaded_files"}));
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
