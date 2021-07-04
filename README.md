@@ -5,9 +5,9 @@ Bangalore Torpedo 2021 Hackathon Code Repo
 ## Instructions To Run/Deploy Backend 
 
 ### Prerequisite
-1. Node Version: v14.17.2
-2. Add .env in project root dir
- 
+1. Node Version: v14.17.2 : https://nodejs.org/en/download/
+2. Add .env in project root dir : Contact developers for this
+3. Install Mongodb. No extra configurations required : https://www.mongodb.com/try/download/community
 ### How to Run Backend
 
 To run backend :
@@ -29,6 +29,22 @@ To run backend :
    2. Uploads the art and its metadata to IPFS 
    3. The returned ipfs url is used to create a new NFT in Ethereum blockchain ( Rinkeby Testnet) 
    4. Each new NFT created can be tracked in Opensea market here: https://testnets.opensea.io/collection/naturenft-v4
+
+2. Get All Uploaded Data:
+   GET URL: http://localhost:8080/nature/sattvas
+   Example Output:
+   <pre>
+    [
+        {
+            "_id": "60e17e480e65c25ac0694300",
+            "artName": "N1",
+            "artDescription": "N2",
+            "originalFileURL": "https://gateway.pinata.cloud/ipfs/QmYBMufaYaL1s7mJhiftjjoZtsPqhTrKqkBLpdgEhK3hv8",
+            "artFileURL": "https://gateway.pinata.cloud/ipfs/QmYBMufaYaL1s7mJhiftjjoZtsPqhTrKqkBLpdgEhK3hv8"
+        }
+    ]
+   </pre>
+
 ### How To Compile and Deploy Contract
 This is not a necessary step, unless you make modification and deploy new contract.
 From project root dir do the following things:
