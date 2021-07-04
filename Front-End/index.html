@@ -1,0 +1,568 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Sattva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&family=Roboto+Slab:wght@100;400;600;700&display=swap" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="lightgallery.css" />
+    <link type="text/css" rel="stylesheet" href="lightgallery-bundle.css" />
+
+  <style>
+    body {margin:0;padding:0;font-family: 'Nunito', sans-serif;background: url('pattern.jpg') repeat;}
+    .layout {display:flex;}
+    .layout-item-center {align-items:center;}
+    .layout-item-end {align-items: flex-end;}
+    .layout-justify-center {justify-content: center;}
+    .layout-justify-space-between {justify-content: space-between;}
+
+    
+    /* Photo Grid */
+    #photos {
+      display:flex;
+      flex-wrap:wrap
+    }
+
+    #photos img {
+      /* Just in case there are inline attributes */
+      width: 100% !important;
+      height: auto !important;
+      max-width:400px;
+    }
+
+    /* @media (max-width: 1200px) {
+      #photos {
+      -moz-column-count:    4;
+      -webkit-column-count: 4;
+      column-count:         4;
+      }
+    }
+    @media (max-width: 1000px) {
+      #photos {
+      -moz-column-count:    3;
+      -webkit-column-count: 3;
+      column-count:         3;
+      }
+    }
+    @media (max-width: 800px) {
+      #photos {
+      -moz-column-count:    2;
+      -webkit-column-count: 2;
+      column-count:         2;
+      }
+    }
+    @media (max-width: 400px) {
+      #photos {
+      -moz-column-count:    1;
+      -webkit-column-count: 1;
+      column-count:         1;
+      }
+    } */
+
+
+    .logo-title {font-size:48px;font-weight:700;color:#444;margin-left:8px;line-height:37px;font-family: 'Roboto Slab', serif;}
+    .wrapper {max-width:1200px;margin:0 auto;padding:24px;position: relative;z-index:9999;}
+    .photo-grid {height:100vh;width:50%;position: absolute;right:0;top:0;overflow: hidden;}
+    .content-card {
+      padding:24px;
+      background-color:#FFF;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+      border-radius:8px;
+      min-height:400px;
+      position: relative;
+      z-index:999;
+      /* background: url('pattern-content.jpg') repeat; */
+    }
+
+    .hashtag-title {
+      color: #4ac13c;
+      font-size:40px;
+      border-radius: 30px;
+      margin:0;
+      padding:8px 16px;
+      border:solid 2px #dadada;
+      margin-top: 16px;
+      margin-right:16px;
+      line-height:30px;
+    }
+    .hashtag-sub-title {
+      font-size:16px;
+      color:#262626;
+    }
+    .park-action-wrapper {
+      margin-left:24px;
+      flex:1 100%;
+    }
+    .park-contribute-wrapper {
+      margin-bottom: 40px;
+      height: 205px;
+      border-radius: 8px;
+      background-color: rgb(153 255 76 / 12%);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+
+    .park-social-wrapper {
+      margin-bottom: 48px;
+      height: 205px;
+      border-radius: 8px;
+      background-color: rgb(140 140 140 / 12%);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+    .park-action-title {
+      font-size:32px;
+      font-weight:200;
+      color:#262626;
+      margin:0;
+    }
+    .park-action-content {
+      position: relative;
+      cursor:pointer;
+    }
+    .park-action-content:hover .park-action-overlay{
+      display: flex;
+    }
+
+    .contribute {
+      color: #7BCB7A;
+      position: absolute;
+      left: 120px;
+      top: 28px;
+    }
+
+    .social {
+      position: absolute;
+      left: 128px;
+      top: 120px;
+      white-space: nowrap;
+    }
+    .park-location-pin {
+      width:32px;
+      height:32px;
+      border-radius:16px;
+      background-color:#FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+
+    .park-thumbnail-card {
+      border-radius:8px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+      background-color:#FFF;
+      width:200px;
+      padding:12px;
+      margin-top:8px;
+    }
+    .overlay {
+      position: fixed;
+      top:0;left:0;
+      height:100vh;
+      width:100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index:9;
+    }
+    .map-wrapper {
+      position: relative;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      border-radius:8px;
+      overflow:hidden;
+      height:450px;
+    }
+    .park-action-overlay {
+      position: absolute;
+      top:0;
+      left:0;
+      bottom:0;
+      right:0;
+      background-color:rgba(0, 0, 0, 0.8);
+      color:#FFF;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      display: none;
+      height: 205px;
+      border-radius: 8px;
+    }
+
+    .park-content-popup {
+      height: calc(100vh - 96px);
+      width:calc(100vw - 96px);
+      margin: auto;
+      position: absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:999999;
+      padding:24px;
+      border-radius:16px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+      background-color: #FFF;
+      display: none;
+    }
+    .park-content-popup h2 {
+      margin:0;
+      color:#262626;
+      font-size:32px;
+    }
+    
+    .divider {
+      width:100%;
+      height:1px;
+      margin:8px 0;
+      background-color: #dadada;
+    }
+    .close-popup {
+      cursor:pointer;
+    }
+
+    /* Image gallery */
+    .inline-gallery-container {
+      height: 610px;
+      position: relative;
+    }
+
+    /* Social Posts Container */
+    .social-card-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      height:600px;
+      overflow-y: auto;
+      margin-top:8px;
+    }
+    .social-card {
+      width:220px;
+      padding:16px;
+      background-color:#FFF;
+      border-radius:8px;
+      box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+      margin:8px;
+
+    }
+
+    .btn-upload {
+      height:24px;
+      padding:8px;
+      border-radius:24px;
+      border:solid 2px #4ac13c;
+      margin-left:24px;
+      cursor:pointer;
+    }
+    .upload-form {
+      width:350px;
+      padding:16px;
+      background-color:#FFF;
+      border-radius:8px;
+      box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+      margin:8px;
+      position: absolute;
+      z-index:999999;
+      display: none;
+    }
+
+  </style>
+
+</head>
+
+<body>
+  
+  <div class="wrapper">
+    
+    <div class="content-card">
+      <div class="layout layout-item-end" style="margin-bottom:16px;">
+        <img src="logo.png" width="192px" alt="Sattva"/>
+      </div>
+      <div class="layout">
+        <div>
+          <div class="map-wrapper">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9713.004447820065!2d13.345362052409573!3d52.51079448642012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851082ab0098b%3A0x52120465b5fabd0!2sTiergarten%2C%20Berlin%2C%20Germany!5e0!3m2!1sen!2sin!4v1625317579862!5m2!1sen!2sin" width="800" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div style="position: absolute;top:130px;left:450px;display: flex;flex-direction: column;justify-content: center;">
+              <div class="park-location-pin">
+                <img src="location.svg" width="24px;"/>
+              </div>
+              <div class="park-thumbnail-card">
+                <div style="height:180px;overflow:hidden;">
+                  <img src="arts/3.png" width="100%;"/>
+                </div>
+                
+                <p>Großer Tiergarten</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="layout">
+            <h2 class="hashtag-title">
+              #SattvaNFT
+            </h2>
+            <h2 class="hashtag-title layout layout-item-center">
+              <span><img src="twitter.svg" width="32px" style="margin-right:8px;" alt="Twitter"/></span>
+              <span><span>140.7K</span> <span class="hashtag-sub-title">Tweets</span></span>
+            </h2>
+            <h2 class="hashtag-title">
+              <span>&#8364;120K</span> <span class="hashtag-sub-title">Raised</span>
+            </h2>
+          </div>
+          
+        </div>
+  
+        <div class="park-action-wrapper">
+          <div id="art-gallery" class="park-action-content">
+            <div class="park-contribute-wrapper">
+              <img src="park_contribute.svg" width="200px" alt=""/>
+            </div>
+            <h2 class="park-action-title contribute">
+              Art Gallery
+            </h2>
+            <div class="park-action-overlay">
+              <img src="explore.svg" width="48px;"/>
+              <span>Explore Now</span>
+            </div>
+          </div>
+          
+  
+          <div id="social-posts" class="park-action-content">
+            <div class="park-social-wrapper">
+              <img src="park_social.svg" width="200px" alt=""/>
+            </div>
+            <h2 class="park-action-title social">
+              Social Posts
+            </h2>
+            <div class="park-action-overlay">
+              <img src="explore.svg" width="48px;"/>
+              <span>Explore Now</span>
+            </div>
+          </div>
+
+          
+          
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+  <div class="art-gallery park-content-popup">
+    <div class="layout layout-item-center layout-justify-space-between">
+      <div class="layout">
+        <h2>Art Gallery</h2>
+        <div style="position: relative;">
+          <div class="btn-upload layout">
+            <img src="upload.svg"/>
+            <p style="margin:0;margin-left:8px;">Upload Image</p>
+          </div>
+          <div class="upload-form">
+            <form id="uploadImageForm">
+              <div style="margin-bottom:8px;">
+                <span>Name</span>
+                <input type="text" id="name" style="width:100%;"/>
+              </div>
+              <div style="margin-bottom:8px;">
+                <span>Description</span>
+                <input type="text" id="description" style="width:100%;"/>
+              </div>
+              <div style="margin-bottom:8px;">
+                <input type="file" id="fileName" name="file"/>
+              </div>
+              <input type="button" id="uploadBTN" value="Submit" />
+            </form>
+          </div>
+        </div>
+        
+      </div>
+      
+      <img src="close-icon.svg" class="close-popup" alt="close"/>
+    </div>
+    <div class="divider"></div>
+    <div>
+      <div id="inline-gallery-container" class="inline-gallery-container"></div>
+    </div>
+  </div>
+
+  <div class="social-posts park-content-popup">
+    <div class="layout layout-item-center layout-justify-space-between">
+      <h2>Social Posts</h2>
+      <img src="close-icon.svg" class="close-popup" alt="close"/>
+    </div>
+    <div class="divider"></div>
+    <div class="social-card-wrapper">
+      <div class="social-card">
+        <img src="arts/1.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/2.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/3.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/4.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/5.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/6.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/7.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/8.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/9.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/10.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/11.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/12.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+
+      <div class="social-card">
+        <img src="arts/13.png" width="100%"/>
+        <p>#SattvaNFT</p>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="photo-grid">
+    <section id="photos"></section>
+  </div> -->
+  <div class="overlay">
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- Or use the minified version -->
+    <script src="lightgallery.min.js"></script>
+
+    <!-- lightgallery plugins -->
+    <script src="plugins/lg-thumbnail.min.js"></script>
+    <script src="plugins/lg-zoom.min.js"></script>
+  <script>
+    //let myForm = document.getElementById('uploadImageForm');
+   
+
+    $( "#uploadBTN" ).click(function() {
+      var fileinput = $('#fileName');
+      console.log("filename", fileinput);
+    var imageName = $('#name').val();
+    var imageDesc = $('#description').val();
+    var formData = new FormData()
+    formData.append('file', fileinput[0].files[0]);
+    formData.append('artName', imageName);
+    formData.append('artDescription', imageDesc);
+      fetch('http://localhost:8080/nature/upload-file', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+      // alert("works");
+    });
+
+    $(".btn-upload").click(function() {
+      $('.upload-form').toggle();
+    });
+   
+
+
+    // Popup
+    $( ".park-action-content" ).click(function() {
+      var imageData = [];
+      $('.'+ $(this).context.id).show();
+      fetch('http://localhost:8080/nature/sattvas', {
+        method: 'GET'
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Success:', result);
+        result.forEach((res)=>{
+          //var subhtml = '<div class="lightGallery-captions"><div class="layout"><img src="'+res['originalFileURL'] +'" width="50%"/><img src="'+ res['artFileURL'] +'" width="50%"/></div></div>';
+          var imageitem = {
+            thumb:res.originalFileURL,
+            subHtml:"<div class='lightGallery-captions'><div class='layout'><img src="+res['originalFileURL'] +" width='50%'/><img src="+ res['artFileURL'] +" width='50%'/></div></div>"
+              };
+          imageData.push(imageitem);
+        });
+        const $lgContainer = document.getElementById("inline-gallery-container");
+
+    const inlineGallery = lightGallery($lgContainer, {
+      container: $lgContainer,
+      dynamic: true,
+      // Turn off hash plugin in case if you are using it
+      // as we don't want to change the url on slide change
+      hash: false,
+      // Do not allow users to close the gallery
+      closable: false,
+      // Add maximize icon to enlarge the gallery
+      showMaximizeIcon: true,
+      // Append caption inside the slide item
+      // to apply some animation for the captions (Optional)
+      appendSubHtmlTo: ".lg-item",
+      // Delay slide transition to complete captions animations
+      // before navigating to different slides (Optional)
+      // You can find caption animation demo on the captions demo page
+      slideDelay: 400,
+      plugins: [lgZoom, lgThumbnail],
+      dynamicEl: imageData,
+
+      // Completely optional
+      // Adding as the codepen preview is usually smaller
+      // thumbWidth: 60,
+      // thumbHeight: "40px",
+      // thumbMargin: 4
+    });
+
+      inlineGallery.openGallery();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+      //Image Gallery
+    
+    });
+    $( ".close-popup" ).click(function() {
+      $('.park-content-popup').hide();
+    });
+
+    
+    
+  </script>
+</body>
+</html>
