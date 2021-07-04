@@ -16,6 +16,7 @@
     "express-fileupload": "^1.2.1",
     "mongodb": "^3.6.9",
     "morgan": "~1.9.1",
+    "python-shell": "^3.0.0",
     "stream-buffers": "^3.0.2",
     "web3": "^1.4.0"
   }

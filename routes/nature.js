@@ -11,7 +11,7 @@ const MongoService = require("./mongo");
 const { spawn } = require('child_process');
 const { resolve } = require('path');
 const pinata = pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
-
+const {PythonShell} =require('python-shell');
 
 
 router.get('/accounts', async function (req, res, next) {
@@ -35,18 +35,18 @@ router.post('/upload-file', async function (req, res) {
     res.status(400).send({ "message": 'Multiple files upload not supported yet' });
   else if (!req.files.file)
     res.status(400).send({ "message": 'File key should be file' });
-
+  
   let artDescription = req.body.artDescription ? req.body.artDescription : "";
   let artName = req.body.artName ? req.body.artName : "";
   let connection = await checkIpfsConnection();
   if (!connection.authenticated)
     res.status(400).send({ "message": "Cannot reach ipfs server" });
   generateArt(req.files.file).then(processedData => {
-    uploadFilesToIpfs(req.files.file, processedData, artName, artDescription).then(result => {
-      createNFT(result, artName, artDescription);
-    }).catch(err => {
-      console.log(err);
-    });
+    // uploadFilesToIpfs(req.files.file, processedData, artName, artDescription).then(result => {
+    //   createNFT(result, artName, artDescription);
+    // }).catch(err => {
+    //   console.log(err);
+    // });
   }).catch(err => {
     console.log(err);
   });
@@ -60,14 +60,28 @@ function checkIpfsConnection() {
 
 function generateArt(file) {
   return new Promise((resolve, reject) => {
-    const python = spawn('python', ['./python/script.py', file.tempFilePath, file.name]);
-    python.stdout.on('data', function (data) {
-      console.log('Pipe data from python script ...');
-      let processedFilePath = data.toString();
-      processedFilePath = processedFilePath.replace(/(\r\n|\n|\r)/gm, "");
-      console.log("Received Processed FilePath from Python:" + processedFilePath);
-      resolve({ "filePath": processedFilePath, "fileName": file.name });
+
+    let options = {
+      mode: 'text',
+      pythonOptions: ['-u'], // get print results in real-time
+        scriptPath: 'python', //If you are having python_test.py script in same folder, then it's optional.
+      args: [file.tempFilePath, file.name] //An argument which can be accessed in the script using sys.argv[1]
+    };
+    PythonShell.run('script.py', options, function (err, result){
+      if (err) throw err;
+      // result is an array consisting of messages collected 
+      //during execution of script.
+      console.log('result: ', result.toString());      
     });
+
+    // const python = spawn('python', ['./python/script.py', file.tempFilePath, file.name]);
+    // python.stdout.on('data', function (data) {
+    //   console.log('Pipe data from python script ...');
+    //   let processedFilePath = data.toString();
+    //   processedFilePath = processedFilePath.replace(/(\r\n|\n|\r)/gm, "");
+    //   console.log("Received Processed FilePath from Python:" + processedFilePath);
+    //   resolve({ "filePath": processedFilePath, "fileName": file.name });
+    // });
   })
 }
 
