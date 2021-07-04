@@ -42,11 +42,11 @@ router.post('/upload-file', async function (req, res) {
   if (!connection.authenticated)
     res.status(400).send({ "message": "Cannot reach ipfs server" });
   generateArt(req.files.file).then(processedData => {
-    // uploadFilesToIpfs(req.files.file, processedData, artName, artDescription).then(result => {
-    //   createNFT(result, artName, artDescription);
-    // }).catch(err => {
-    //   console.log(err);
-    // });
+    uploadFilesToIpfs(req.files.file, processedData, artName, artDescription).then(result => {
+      createNFT(result, artName, artDescription);
+    }).catch(err => {
+      console.log(err);
+    });
   }).catch(err => {
     console.log(err);
   });
@@ -71,7 +71,10 @@ function generateArt(file) {
       if (err) throw err;
       // result is an array consisting of messages collected 
       //during execution of script.
-      console.log('result: ', result.toString());      
+      let processedFilePath = result.toString();
+      processedFilePath = processedFilePath.replace(/(\r\n|\n|\r)/gm, "");
+      console.log("Received Processed FilePath from Python:" + processedFilePath);
+      resolve({ "filePath": processedFilePath, "fileName": file.name });      
     });
 
     // const python = spawn('python', ['./python/script.py', file.tempFilePath, file.name]);
@@ -91,13 +94,20 @@ function uploadFilesToIpfs(originalFile, processedData, artName, artDescription)
     let artStream = fs.createReadStream(processedData.filePath);
     let artOptions = {
       pinataMetadata: {
+        name: "art_"+originalFile.name,
+      }
+    };
+    let originalStream = fs.createReadStream(originalFile.tempFilePath);
+    let originalOptions = {
+      pinataMetadata: {
         name: originalFile.name,
       }
     };
-    const pinOriginalPromise = pinOriginal(artStream, artOptions);
+    const pinOriginalPromise = pinOriginal(originalStream, originalOptions);
     const pinArtPromise = pinART(artStream, artOptions, artName, artDescription);
 
     Promise.all([pinOriginalPromise, pinArtPromise]).then(results => {
+      // console.log("222222")
       let originalResult = results[0];
       let artResult = results[1];
       resolve({ "originalIpfsHash": originalResult.IpfsHash, "artIpfsHash": artResult.artIpfsHash, "metadataIpfsHash": artResult.metadataIpfsHash });
