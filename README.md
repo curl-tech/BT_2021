@@ -7,7 +7,7 @@ Bangalore Torpedo 2021 Hackathon Code Repo
 ### Prerequisite
 1. Node Version: v14.17.2 : https://nodejs.org/en/download/
 2. Add .env in project root dir : Contact developers for this
-3. Install Mongodb. No extra configurations required : https://www.mongodb.com/try/download/community
+3. Install Mongodb as service with with default 27017 port. No extra configurations required : https://www.mongodb.com/try/download/community
 ### How to Run Backend
 
 To run backend :
