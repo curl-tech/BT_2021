@@ -1,0 +1,47 @@
+#
+#
+# In this config, you define the data neccessary for the park optimization
+# 1. the maxcostforsetup in the "Park" group. 
+# 2. the plants list with all facts about the tree/plants that are part of the repository.
+# When setting up the plants list, use below:
+# 	* Market value is per unit of the product producted.
+# 	* All currencies should be one unit like EUR or USD or INR as needed.
+# 	* Everything else like yield, setupcost, maintance cost,etc  must be given on per acre basis.  
+#
+#
+
+# Some search has revealed that there are some realistic dataset for filling in key config attributes. Use below guidance.
+#
+#For Apple:
+#https://data.ontario.ca/dataset/ontario-apple-production-and-yield
+#
+#For Other fruits and vege:
+#https://data.ontario.ca/dataset/ontario-fruit-and-vegetable-production
+#
+#
+#
+#Costs are here:
+#https://data.ontario.ca/dataset/farm-input-price-index
+#https://data.ontario.ca/dataset/greenhouse-industry-statistics
+#https://data.ontario.ca/dataset/greenhouse-flower-and-plant-production
+#
+# 
+
+{
+"Plants": [
+    { "name":"apple", "yieldperacreinkg":"156", "bioscore":"0.55", "beautyscore":"0.65", "newcost1year":"400", "maintaincostyearly":"200", marketprice:10 },
+    { "name":"peach", "yieldperacreinkg":140, "bioscore":0.55, "beautyscore":0.65, "newcost1year":400, "maintaincostyearly":300 , marketprice:10},
+	{ "name":"grape", "yieldperacreinkg":130, "bioscore":0.55, "beautyscore":0.65, "newcost1year":400, "maintaincostyearly":300 , marketprice:10},
+	{ "name":"pear", "yieldperacreinkg":120, "bioscore":0.55, "beautyscore":0.65, "newcost1year":400, "maintaincostyearly":300 , marketprice:10},
+	{ "name":"plum", "yieldperacreinkg":110, "bioscore":0.55, "beautyscore":0.65, "newcost1year":400, "maintaincostyearly":300 , marketprice:10},
+	{ "name":"strawberry", "yieldperacreinkg":200, "bioscore":0.55, "beautyscore":0.65, "newcost1year":400, "maintaincostyearly":300 , marketprice:10},
+	{ name:"Chrysanthemums", yieldperacreinkg:10, bioscore:0.1, beautyscore:0.88, newcost1year:50, maintaincostyearly:50, marketprice:10 },	
+	{ name:"Roses", yieldperacreinkg:20, bioscore:0.1, beautyscore:0.88, newcost1year:50, maintaincostyearly:50 , marketprice:10},	
+	{ name:"Daffodils", yieldperacreinkg:30, bioscore:0.1, beautyscore:0.88, newcost1year:50, maintaincostyearly:50 , marketprice:10},	
+	{ name:"Dahlia", yieldperacreinkg:40, bioscore:0.1, beautyscore:0.88, newcost1year:50, maintaincostyearly:50 , marketprice:10},	
+	{ name:"Poinsettias", yieldperacreinkg:50, bioscore:0.1, beautyscore:0.88, newcost1year:50, maintaincostyearly:50 , marketprice:10},	
+	{ name:"Gerberas", yieldperacreinkg:60, bioscore:0.1, beautyscore:0.88, newcost1year:50, maintaincostyearly:50 , marketprice:10},	
+	{ name:"Orchids", yieldperacreinkg:70, bioscore:0.1, beautyscore:0.88, newcost1year:50, maintaincostyearly:50 , marketprice:10},	
+],
+	"Park":{ x1:0, y1:0, x2:500,y2:500,totalacres:1,pathwaydesignstrategy:"forest",maxcostforsetup:2000},
+}
